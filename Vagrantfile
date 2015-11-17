@@ -13,7 +13,12 @@ Vagrant.configure(2) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "debian/jessie64"
 
-  config.vm.provision "file", source: "setup-script.sh", destination: "~/setup-script.sh"
+  # config.vm.provision "shell" do |s|
+  #  s.inline = "touch /tmp/00000001"
+  #end
+  config.vm.provision :shell, :path => "setup-script.sh"
+
+  config.vm.network :forwarded_port, guest: 22, host: 10022
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
